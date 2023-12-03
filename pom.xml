@@ -196,17 +196,24 @@
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>server.App</mainClass>
+            </manifest>
+          </archive>
         </configuration>
         <executions>
           <execution>
             <id>copy-dependencies</id>
             <phase>package</phase>
-            <goals><goal>assembly</goal></goals>
+            <goals>
+              <goal>assembly</goal>
+            </goals>
           </execution>
         </executions>
-
-
       </plugin>
+      
+
     </plugins>
   </build>
 
