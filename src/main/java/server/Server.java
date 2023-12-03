@@ -119,5 +119,5 @@ public class Server {
         WithSimplePersistenceUnit.configure(propertiesConsumer);
 
 */
-}}
+}
 
