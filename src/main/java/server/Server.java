@@ -14,6 +14,8 @@ import server.handlers.AppHandlers;
 import server.middlewares.AuthMiddleware;
 import server.middlewares.SessionMiddleware;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,18 +27,20 @@ import java.util.function.Consumer;
 public class Server {
     
     private static Javalin app=null;
+    private static EntityManagerFactory emf = null;
     
     public static Javalin app(){
         if(app == null)
             throw new RuntimeException("App no inicializada");
         return app;
     }
-    
-    public static void init(){
-        if(app==null){
+
+    public static void init() {
+        if (app == null) {
+            emf = Persistence.createEntityManagerFactory("simple-persistence-unit"); // Inicializar EntityManagerFactory
 
             String strport = System.getenv("PORT");
-            if (strport == null){
+            if (strport == null) {
                 strport = "8089";
             }
             Integer port = Integer.parseInt(strport);
@@ -45,8 +49,15 @@ public class Server {
             initTemplateEngine();
             AppHandlers.applyHandlers(app);
             Router.init();
-            //Server.configureEntityManagerProperties();
-            //Initializer.init();
+
+            // Añadir manejador de eventos para el cierre del servidor
+            app.events(event -> {
+                event.serverStopping(() -> {
+                    if (emf != null) {
+                        emf.close(); // Cerrar EntityManagerFactory cuando el servidor se esté deteniendo
+                    }
+                });
+            });
         }
     }
 
