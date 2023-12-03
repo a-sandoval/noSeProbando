@@ -21,7 +21,7 @@ services:
       hibernate.hbm2ddl.auto: create
       javax.persistence.jdbc.driver: org.postgresql.Driver
       javax.persistence.jdbc.password: RZj4bqi4JsDsm7nPla8I9XymHqx6oZrd
-      javax.persistence.jdbc.url: postgres://dbtpamama_user:RZj4bqi4JsDsm7nPla8I9XymHqx6oZrd@dpg-cll2k16aov6s73f1ne0g-a.oregon-postgres.render.com/dbtpamama
+      javax.persistence.jdbc.url: jdbc:postgresql://dbservice/dbtpamama
       javax.persistence.jdbc.user: dbtpamama_user
     depends_on:
       - dbservice
