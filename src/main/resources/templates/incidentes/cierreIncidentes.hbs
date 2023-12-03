@@ -1,0 +1,111 @@
+{{#partial "contenido" }}
+
+    <!-- PARTE DE CIERRE DE INCIDENTES -->
+    <div>
+        <div class="row justify-text-center mt-4">
+            <div class="col-md-12 text-center ">
+                <h1>Cierre de Incidente </h1>
+            </div>
+        </div>
+
+        <div> <!-- Parte del medio -->
+            <div class="row">
+                <div class="col-md-8 offset-2">
+                    <div class="tall-container incidentes">
+                        {{#with incidente}}
+                            <div class="card text-center m-3">
+                                <div class="card-header">
+                                    {{establecimiento.nombre}}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{servicioAfectado.nombre}}</h5>
+                                    <p class="card-text">{{descripcion}}</p>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    Fecha de reporte del incidente: {{formateo fechaReporte}}
+                                </div>
+                            </div>
+                        {{/with}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">  <!-- Parte del final -->
+            <div class="col-md-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-8 offset-2">
+                        <div class="row justify-text-center">
+                            <div class="col-md-12 text-center mt-3">
+                                <h3>¿Se resolvió el incidente?</h3>
+                            </div>
+                        </div>
+
+                        <form method="post" action="/incidentes/{{incidente.id}}/editar" id="formCierreIncidente">
+                            <div class="row d-flex align-items-center justify-content-center mt-1">
+                                <div class="col-2 d-flex justify-content-center align-items-center">
+                                    <select id="resolucion" name="resolucion" class="form-select">
+                                        <option value="si" class="btn borde redondeado">Sí</option>
+                                        <option value="no" class="btn borde redondeado">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 text-center mt-4">
+                                    <button type="submit">Confirmar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de éxito para el cierre del incidente -->
+    <div class="modal fade" id="cierreSuccessModal" tabindex="-1" aria-labelledby="cierreSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cierreSuccessModalLabel">Cierre Exitoso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¡El incidente se ha cerrado con éxito!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnAceptarModal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+    document.querySelector('#formCierreIncidente').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        fetch(`/incidentes/{{incidente.id}}/editar`, {
+            method: 'POST',
+            body: new FormData(e.target)
+        })
+        .then(response => {
+            if (response.ok) {
+                var cierreSuccessModal = new bootstrap.Modal(document.getElementById('cierreSuccessModal'));
+                cierreSuccessModal.show();
+
+                // Redirigir a "/home" al presionar Aceptar en el modal
+                document.getElementById('btnAceptarModal').addEventListener('click', function () {
+                    window.location.href = "/home";
+                });
+            } else {
+                console.error('Error al enviar el formulario de cierre de incidente');
+            }
+        })
+        .catch(error => {
+            console.error('Error de red al enviar el formulario de cierre de incidente', error);
+        });
+    });
+</script>
+
+{{/partial}}
+{{> templates/baseConNavegador }}

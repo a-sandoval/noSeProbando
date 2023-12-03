@@ -1,0 +1,90 @@
+{{#parcial "contenido"}}
+
+<!-- PARTE DE EDITAR PERFIL -->
+<div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-3 borde redondeado mt-4">
+                <h2 class="text-center">Editar perfil</h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6 borde redondeado mt-4">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-5 m-4 borde redondeado p-3">
+                        <div class="row ps-5 pe-5 p-1">
+                            <h3 class="text-center borde redondeado">Usuario</h3>
+                        </div>
+                        <form method="POST">
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <input class="form-control mr-sm-2" placeholder="Nombre de usuario"></input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control mr-sm-2" placeholder="Contraseña"></input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control mr-sm-2" placeholder="Mail"></input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control mr-sm-2" placeholder="Teléfono"></input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control mr-sm-2" placeholder="Localización"></input>
+                            </div>
+                        </div>
+                        </form>
+
+                    </div>
+                    <div class="col-md-5 m-4 borde redondeado p-3">
+                        <div class="row pe-3 ps-3 p-1">
+                            <h3 class="text-center borde redondeado">Notificaciones</h3>
+                        </div>
+
+                        <form method="post">
+                        <div class="row mt-2 pe-3 ps-3">
+                            <div class="form-group">
+                                <label for="medioSelect">Medio:</label>
+                                <select class="form-control" id="medioSelect">
+                                    <option value="1">WhatsApp</option>
+                                    <option value="2">Mail</option>
+                                </select>
+                            </div>
+                        </div>
+                        </form>
+
+                        <form method="id">
+                        <div class="row mt-2 pe-3 ps-3">
+                            <div class="form-group">
+                                <label for="medioSelect">Modo:</label>
+                                <select class="form-control" id="modoSelect">
+                                    <option value="1">Sincrónico</option>
+                                    <option value="2">Asincrónico</option>
+                                </select>
+                            </div>
+                        </div>
+                        </form>
+
+                        <div class="row">
+                            <div class="col-12 mt-3 d-flex justify-content-center align-items-center">
+                                <button><a href="/index">Guardar cambios </a> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{{/parcial}}
+{{> templates/baseConNavegador }}

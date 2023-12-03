@@ -1,0 +1,85 @@
+{{#partial "contenido" }}
+
+<div class = "container-fluid">
+    <div class="row">
+        <!-- Parte de la izquierda --><main class="main-content  mt-0">
+        <section>
+            <div class="page-header min-vh-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+                            <div class="card card-plain">
+                                <div class="card-header pb-0 text-start">
+                                    <h3 class="font-weight-bolder text-center mb-0">¿Qué PasApp?</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form method="POST" action = "/" role="form">
+                                        <div>
+                                            <label for="usuario">Usuario:</label>
+                                            <input type="usuario" id="email" name="usuario" required class="form-control form-control-lg">
+                                        </div>
+                                        <div>
+                                            <label for="contrasenia">Contraseña: </label>
+                                            <input type = "password" id="contrasenia" name="contrasenia" required class="form-control form-control-lg"></input>
+                                        </div>
+                                        <button action="/home/{id}" type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Entrar</button>
+                                    </form>
+                                    <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                        <p class="mb-4 text-sm mx-auto">
+                                            ¿No tenés una cuenta?
+                                            <a href="/signup" class="text-primary text-gradient font-weight-bold">Registrarse</a>
+                                        </p>
+                                    </div>
+                                    {{#if error}}
+                                        <div class="row alert">
+                                            <h5>Sus credenciales son incorrectas. Intente nuevamente.</h5>
+                                        </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+                            <div class="p-3 position-relative bg-gradient-primary h-100 border-radius-lg d-flex flex-column justify-content-center overflow-hidden">
+                                <iframe style="border: 5px; border-radius: 20px; width: 100%; height: 100%;" Loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/view?zoom=17&center=-34.5986%2C-58.4201&key=AIzaSyDBJD6fpJEj8pV7pB9QHKd7f8LnjbWexy0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+            <div class="row h-100 align-items-center">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-8">
+                <div class="container">
+                    <div class="row justify-text-center">
+                        <div class="col-md-12 text-center">
+                            <h1>Que PasApp?</h1>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parte de la derecha -->
+        <div class="col-md-6">
+            <iframe width="600" height="450" style="border:0" Loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/view?zoom=17&center=-34.5986%2C-58.4201&key=AIzaSyDBJD6fpJEj8pV7pB9QHKd7f8LnjbWexy0"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Forzar la recarga cuando el usuario vuelve atrás
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
+{{/partial}}
+{{> templates/base }}

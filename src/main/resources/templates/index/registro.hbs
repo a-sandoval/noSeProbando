@@ -1,0 +1,117 @@
+{{#partial "contenido"}}
+    <!-- PARTE DEL REGISTRO -->
+
+    <div class="container my-12">
+        <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
+            <div class="col-xl-10 col-lg-10 col-md-10 mx-auto">
+                <div class="card z-index-0">
+                    <div class="card-header text-center pt-4">
+                        <h4>Registrate</h4>
+                    </div>
+                    <div class="card-body row">
+                        <div class="col-md-6">
+                            <form role="form" method="POST" action="">
+                                <h3 class="text-center pt-4">Datos personales</h3>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Nombre de usuario" aria-label="Nombre de usuario" name="nombre" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" name="contrasenia" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" placeholder="Número de teléfono" aria-label="Teléfono" name="telefono" required>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-md-6">
+                            <form role="form" method="POST" action="">
+                                <h3 class="text-center pt-4">Preferencias al recibir notificaciones</h3>
+                                <div class="mb-3">
+                                    <label class="form-label">Medio preferido:</label>
+                                    <div class="d-flex justify-content-center">
+                                        {{#each medios}}
+                                            <div class="form-check mx-3">
+                                                <input type="radio" class="form-check-input" id="medio{{@index}}" name="medios" value="{{this}}">
+                                                <label class="form-check-label" for="medio{{@index}}">{{this}}</label>
+                                            </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Modo de notificación:</label>
+                                    <div class="d-flex justify-content-center">
+                                        {{#each modos}}
+                                            <div class="form-check mx-3">
+                                                <input type="radio" class="form-check-input" id="modo{{@index}}" name="modos" value="{{this}}">
+                                                <label class="form-check-label" for="modo{{@index}}">{{this}}</label>
+                                            </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                                <div class="mb-3" id="botonAdicionalContainer" style="display: none;">
+                                    <button id="botonAdicional" type="button" class="btn btn-secondary">Configurar horarios disponibles</button>
+                                </div>
+                                <div id="desplegableContainer" style="display: none; max-height: 120px; overflow-y: auto;">
+                                    {{#each horarios}}
+                                        <input type="checkbox" id="{{this}}" name="opciones" value="{{this}}">
+                                        <label for="{{this}}">{{this}}</label><br>
+                                    {{/each}}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#if errorMessage}}
+            <div class="container mt-3">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="alert alert-danger" role="alert">
+                            {{errorMessage}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var radioModos = document.querySelectorAll('input[name="modos"]');
+            var botonAdicionalContainer = document.getElementById("botonAdicionalContainer");
+            var desplegableContainer = document.getElementById("desplegableContainer");
+
+            radioModos.forEach(function(radioModo) {
+                radioModo.addEventListener("change", function() {
+                    if (radioModo.value === "Asincronica") {
+                        botonAdicionalContainer.style.display = "block";
+                    } else {
+                        botonAdicionalContainer.style.display = "none";
+                        desplegableContainer.style.display = "none";
+                    }
+                });
+            });
+
+            var botonAdicional = document.getElementById("botonAdicional");
+
+            botonAdicional.addEventListener("click", function() {
+                if (desplegableContainer.style.display === "block") {
+                    desplegableContainer.style.display = "none";
+                } else {
+                    desplegableContainer.style.display = "block";
+                }
+            });
+        });
+    </script>
+
+{{/partial}}
+{{> templates/base }}

@@ -1,0 +1,112 @@
+{{#partial "contenido" }}
+    <!-- PARTE DE APERTURA DE INCIDENTES -->
+    <div class="container-fluid">
+        <div class="row justify-content-center mt-5">
+            <div class="col-8">
+                <div class="card m-5" style="font-family: 'Poppins', sans-serif;">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Apertura de incidente</h2>
+                        <form method="post" action="/incidentes/crear">
+                            <div class="row mt-3">
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="form-group">
+                                        <label for="comunidad" class="form-label" style="font-weight: 500;">¿En qué comunidad quieres reportar el incidente?</label>
+                                        {{#if comunidadSeleccionada}}
+                                            <p class="form-control-static">{{comunidadSeleccionada.nombre}}</p>
+                                            <input type="hidden" name="comunidad" value="{{comunidadSeleccionada.nombre}}">
+                                        {{else}}
+                                            <select id="comunidad" name="comunidad" required class="form-control">
+                                                <option value="">Selecciona una comunidad</option>
+                                                {{#each comunidades}}
+                                                    <option value="{{this.id}}">{{this.nombre}}</option>
+                                                {{/each}}
+                                            </select>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="form-group">
+                                        <label for="servicio" class="form-label" style="font-weight: 500;">¿Cuál es el servicio afectado?</label>
+                                        <select id="servicio" name="servicio" required class="form-control">
+                                            <option value="" disabled selected hidden>Seleccione un servicio</option>
+                                            {{#each servicios}}
+                                                <option value="{{this.id}}">{{this.nombre}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="form-group">
+                                        <label for="observaciones" class="form-label" style="font-weight: 500;">Observaciones</label>
+                                        <input type="text" id="observaciones" name="observaciones" placeholder="" required class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-8 offset-md-2 d-flex justify-content-center align-items-center">
+                                    <button type="submit" class="btn btn-primary">Reportar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de éxito -->
+    <div class="modal fade" id="reportSuccessModal" tabindex="-1" aria-labelledby="reportSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportSuccessModalLabel">Reporte Exitoso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¡El incidente se ha reportado con éxito!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnAceptarModal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault(); // Evitar que el formulario se envíe de inmediato
+
+        // Realizar una llamada AJAX para enviar los datos al servidor
+        fetch('/incidentes/crear', {
+            method: 'POST',
+            body: new FormData(e.target) // Enviar los datos del formulario
+        })
+                .then(response => {
+                    if (response.ok) {
+                        // Si la operación se completó con éxito, muestra el modal de éxito
+                        var reportSuccessModal = new bootstrap.Modal(document.getElementById('reportSuccessModal'));
+                        reportSuccessModal.show();
+
+                        // Agregar un manejador de eventos al botón "Aceptar" en el modal
+                        document.getElementById('btnAceptarModal').addEventListener('click', function () {
+                            // Redirigir a "/home"
+                            window.location.href = "/home";
+                        });
+                    } else {
+                        // Manejar errores si la operación no fue exitosa
+                        console.error('Error al enviar el formulario');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error de red al enviar el formulario', error);
+                });
+    });
+
+
+    </script>
+
+{{/partial}}
+{{> templates/baseConNavegador }}

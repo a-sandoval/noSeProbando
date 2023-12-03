@@ -1,0 +1,100 @@
+{{#partial "contenido" }}
+
+    <div class="container mt-15">
+        <div class="row justify-content-center">
+            <div class="col-md-12 borde redondeado p-4">
+                <div class="row p-4">
+                    <div class="borde redondeado d-flex justify-content-center p-2">
+                        <h1>Crear comunidad</h1>
+                    </div>
+                </div>
+                <form method="POST" action="/comunidades/crear">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="nombre">Nombre nueva comunidad:</label>
+                        <input name = "nombre" class="form-control mr-sm-2" placeholder="Nombre de nueva comunidad" required></input>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="descripcion">Descripción nueva comunidad:</label>
+                        <input name = "descripcion" class="form-control mr-sm-2" placeholder="Descripcion nueva comunidad" required></input>
+                        <hr>
+                    </div>
+                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Entidades:</label>
+                        <div id="serviciosContainer" style="max-height: 120px; overflow-y: auto;">
+                            {{#each servicios}}
+                                <input type="checkbox" id="{{this}}" name="servicios" value="{{this}}">
+                                <label for="{{this}}">{{this}}</label><br>
+                            {{/each}}
+                        </div>
+                    </div>
+
+                    <div class="row d-flex align-items-center justify-content-center">
+                            <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">
+                                <button class="btn btn-primary" name="crearComunidad" type="submit">Unirse</button>
+                            </div>
+                        </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reportSuccessModal" tabindex="-1" aria-labelledby="reportSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportSuccessModalLabel">Creación exitosa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¡Has creado una comunidad con éxito!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnAceptarModal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Evitar que el formulario se envíe de inmediato
+
+            // Realizar una llamada AJAX para enviar los datos al servidor
+            fetch('/comunidades/crear', {
+                method: 'POST',
+                body: new FormData(e.target) // Enviar los datos del formulario
+            })
+                    .then(response => {
+                        if (response.ok) {
+                            // Si la operación se completó con éxito, muestra el modal de éxito
+                            var reportSuccessModal = new bootstrap.Modal(document.getElementById('reportSuccessModal'));
+                            reportSuccessModal.show();
+
+                            // Agregar un manejador de eventos al botón "Aceptar" en el modal
+                            document.getElementById('btnAceptarModal').addEventListener('click', function () {
+                                // Redirigir a "/home"
+                                window.location.href = "/home";
+                            });
+                        } else {
+                            // Manejar errores si la operación no fue exitosa
+                            console.error('Error al enviar el formulario');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error de red al enviar el formulario', error);
+                    });
+        });
+
+
+    </script>
+
+{{/partial}}
+{{> templates/baseConNavegador }}

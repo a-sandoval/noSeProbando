@@ -1,0 +1,74 @@
+/* Inicio de sesión */
+.borde{
+    border: 1px solid black;
+}
+
+.mi-input-corto {
+    width: 150px; /* Ancho personalizado */
+    height: 30px; /* Altura personalizada */
+}
+
+.form-control{
+    width: 80px;
+}
+
+/*  Admin de usuario */
+nav {
+    background-color: #f0f0f0; /* Fondo gris */
+    padding: 3px; /* Espaciado interno para mejorar el aspecto */
+}
+
+ul.nav-list {
+    list-style: none; /* Eliminar los puntos de la lista */
+    padding: 0; /* Eliminar el espaciado interno de la lista */
+}
+
+li.nav-item {
+    display: inline; /* Mostrar elementos de lista en línea */
+    margin-right: 20px; /* Espaciado entre elementos */
+}
+
+a.nav-link {
+    text-decoration: none; /* Eliminar subrayado de enlaces */
+    color: #333; /* Color del texto */
+    font-family: Arial, sans-serif; /* Tipo de fuente */
+    font-size: 14px; /* Tamaño de fuente */
+}
+
+.titulo {
+    font-family: Arial, sans-serif; /* Tipo de fuente sans-serif */
+    text-align: center; /* Centrar el texto */
+    color: #00000;
+}
+
+.gray-container {
+    background-color: #ccc; /* Gray background color */
+    border-radius: 10px; /* Rounded corners */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.contenedor-fondo{
+    background-color: grey;
+    border-radius: 45px;
+    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.contenedor-de-texto{
+    background-color: lightgrey;
+    border-radius: 23px;
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+
+.redondeado{
+    border-radius: 45px;
+}

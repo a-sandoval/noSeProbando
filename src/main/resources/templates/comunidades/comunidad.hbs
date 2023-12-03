@@ -1,0 +1,65 @@
+{{#partial "contenido" }}
+<div class="container mt-15">
+    <div class="row justify-content-center">
+        <div class="col-md-4 borde">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="comunidad">
+                        <div class="row borde redondeado m-3">
+                            <div class="col-md-3 p-3 d-flex align-items-center">
+                                <img src="/images/comunidad.png" class="card-img-top" alt="Community Image">
+                            </div>
+                            <div>
+                                <h6 class="text-start">{{comunidad.nombre}}</h6>
+                                <h6 class="text-start">{{comunidad.descripcion}}</h6>
+                            </div>
+                            <div class="col-md-8 ms-3 mt-2 p-3">
+                                <h6 class="text-start">
+                                    <a href="/incidentes/crear" class="btn btn-primary btn-estetico">Reportar un incidente</a>
+                                    <form action="/comunidades/{{comunidad.id}}/salir" method="POST">
+                                        <button type="submit" class="btn btn-danger">Salir de la Comunidad</button>
+                                    </form>
+                                </h6>
+                            </div>
+                            <!--
+                             <div class="row mt-4">
+                                <div class="col">
+
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 borde">
+            <div class="row">
+                <div class="col m-3">
+                    <h2>Incidentes reportados de la Comunidad</h2>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {{#each incidentes}}
+                    <div class="col">
+                        <div class="card m-2">
+                            <div style="width: 63px; height: 50px;">
+                                <img src="/images/icono_incidente.png" alt="Incident Image">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{this.servicioAfectado.establecimiento.nombre}}</h5>
+                                <p class="card-text">Servicio: {{this.servicioAfectado.nombre}}</p>
+                                <p class="card-text">Estado: {{this.estado.estado}}</p>
+                                <p class="card-text">Fecha de Resolucion: {{ formateo this.fechaResolucion }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+
+        </div>
+    </div>
+</div>
+{{/partial}}
+
+{{> templates/baseConNavegador }}

@@ -1,0 +1,33 @@
+{{#partial "contenido"}}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 borde redondeado p-4">
+                <div class="row p-4">
+                    <div class="borde redondeado d-flex justify-content-center p-2">
+                        <h1>Entidades de Interés</h1>
+                    </div>
+                </div>
+                <div class="row ps-4 pe-4">
+                    <div class="borde redondeado mt-5">
+                        <form method="POST" action="/entidades" class="form-control">
+                            {{#if entidades}}
+                                {{#each entidades}}
+                                    <label for="entidad{{@index}}">{{this}}</label>
+                                    <input type="checkbox" id="entidad{{@index}}" name="entidades" value="{{this}}">
+                                {{/each}}
+                                <div class="row d-flex align-items-center justify-content-center">
+                                    <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">
+                                        <button class="btn btn-primary" type="submit">Seleccionar</button>
+                                    </div>
+                                </div>
+                            {{else}}
+                                <p class="text-center">Ya seleccionaste todas las entidades de interés 📢</p>
+                            {{/if}}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/partial}}
+{{> templates/baseConNavegador }}

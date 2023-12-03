@@ -1,0 +1,94 @@
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <style>
+         #map {
+            height: 500px;
+            width: 500px;
+            border-radius: 20px;
+        }
+        .incidentes-list {
+            margin-left: 520px;
+        }
+        .borde {
+            border: 1px solid #ccc;
+        }
+        .redondeado {
+            border-radius: 5px;
+        }
+    </style>
+</head>
+{{#partial "contenido" }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 ">
+                <div id='map' style="border: 5px; border-radius: 20px; width: 100%; height: 500px;"></div>
+            </div>
+            <div class="col-md-5">
+                <div class="card m-5">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">¿Te puedes acercar a la ubicación del incidente?</h4>
+                        {{#each incidentes}}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5>{{this.servicioAfectado.establecimiento.nombre}}</h5>
+                                    <h5>{{this.servicioAfectado.nombre}}</h5>
+                                    <p>{{this.descripcion}}</p>
+                                    <a href="incidentes/{{this.id}}/editar">Me puedo acercar a este</a>
+                                </div>
+                            </div>
+                        {{/each}}
+                        <div class="card">
+                            <div class="card-body d-flex justify-content-center">
+                                <a href="/home" class="btn btn-primary btn-estetico">No puedo acercarme</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function(){
+        let map = L.map('map').setView([-34.5986, -58.4201], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        fetch('/incidentes/ubicaciones')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(incidente => {
+                    let latitud = incidente.latitud;
+                    let longitud = incidente.longitud;
+                    let nombreEstablecimiento = incidente.nombreEstablecimiento;
+                    let nombreServicio = incidente.nombreServicioAfectado;
+                    let descripcion = incidente.descripcion;
+                    let id = incidente.id;
+
+                    let marker = L.marker([latitud, longitud], ).addTo(map);
+
+                    let popupContent = `
+                        <strong>Establecimiento:</strong> ${nombreEstablecimiento}<br>
+                        <strong>Servicio Afectado:</strong> ${nombreServicio}<br>
+                        <strong>Descripción:</strong> ${descripcion}<br>
+                        <a href="/incidentes/${id}/editar">Cerrar Incidente</a>
+                    `;
+
+                    marker.bindPopup(popupContent);
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener las ubicaciones de los incidentes:', error);
+            });
+    });
+    </script>
+
+{{/partial}}
+
+{{> templates/baseConNavegador }}

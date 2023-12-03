@@ -1,0 +1,70 @@
+{{#partial "contenido" }}
+
+<!-- Resto del contenido de la página -->
+<div class="container mt-3 borde">
+    <div class="row">
+        <div class="container ml-100 borde redondeado d-flex align-items-center justify-content-center">
+            <h2>Rankings</h2>
+        </div>
+    </div>
+    <div style="margin-bottom: 20px;"></div>
+    <div class="row">
+        <div class="col-md-3 ms-5 m-4">
+            <div class="row borde">
+                <div class="col card m-2">
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="col text-center text-justify m2">
+                            <h4>RANKING REPORTES</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex align-items-center justify-content-center text-justify">
+                            <a href="rankings/rankingReportes" download>
+                                <button class="btn btn-primary">Descargar</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 m-4 ms-5 borde">
+            <div class="row borde">
+                <div class="col">
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="col text-center text-justify m2">
+                            <h4>RANKING PROMEDIO CIERRE</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex align-items-center justify-content-center">
+                            <a href="rankings/rankingPromedioCierre" download>
+                                <button class="btn btn-primary">Descargar</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 m-4 ms-5 borde">
+            <div class="row borde">
+                <div class="col">
+                    <div class="row d-flex align-items-center justify-content-center m2">
+                        <div class="col text-center text-justify m2">
+                            <h4>RANKING PROMEDIO INCIDENTES</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex align-items-center justify-content-center">
+                            <a href="rankings/rankingImpactoIncidentes" download>
+                                <button class="btn btn-primary" >Descargar</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{/partial}}
+{{> templates/baseConNavegador }}
