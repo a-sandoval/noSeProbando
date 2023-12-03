@@ -45,7 +45,7 @@ public class Server {
             initTemplateEngine();
             AppHandlers.applyHandlers(app);
             Router.init();
-            Server.configureEntityManagerProperties();
+            //Server.configureEntityManagerProperties();
             //Initializer.init();
         }
     }
@@ -87,7 +87,7 @@ public class Server {
                 }, ".hbs" // Extensión del archivo de template
         );
     }
-    public static void configureEntityManagerProperties() {
+    /*public static void configureEntityManagerProperties() {
 
         Map<String, String> env = System.getenv();
         Map<String, Object> configOverrides = new HashMap<>();
@@ -118,6 +118,6 @@ public class Server {
 
         WithSimplePersistenceUnit.configure(propertiesConsumer);
 
-
+*/
 }}
 
