@@ -26,7 +26,6 @@
 
 
 
-
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
             <property name="hibernate.connection.url" value="jdbc:postgresql://dpg-cll2k16aov6s73f1ne0g-a.oregon-postgres.render.com:5432/dbtpama"/>
             <property name="hibernate.connection.username" value="dbtpamama_user" />
