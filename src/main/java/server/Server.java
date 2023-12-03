@@ -27,7 +27,6 @@ import java.util.function.Consumer;
 public class Server {
     
     private static Javalin app=null;
-    private static EntityManagerFactory emf = null;
     
     public static Javalin app(){
         if(app == null)
@@ -35,12 +34,13 @@ public class Server {
         return app;
     }
 
-    public static void init() {
-        if (app == null) {
-            emf = Persistence.createEntityManagerFactory("simple-persistence-unit"); // Inicializar EntityManagerFactory
+    public static void init(){
+        if(app==null){
+
+
 
             String strport = System.getenv("PORT");
-            if (strport == null) {
+            if (strport == null){
                 strport = "8089";
             }
             Integer port = Integer.parseInt(strport);
@@ -49,15 +49,8 @@ public class Server {
             initTemplateEngine();
             AppHandlers.applyHandlers(app);
             Router.init();
-
-            // Añadir manejador de eventos para el cierre del servidor
-            app.events(event -> {
-                event.serverStopping(() -> {
-                    if (emf != null) {
-                        emf.close(); // Cerrar EntityManagerFactory cuando el servidor se esté deteniendo
-                    }
-                });
-            });
+            //Server.configureEntityManagerProperties();
+            //Initializer.init();
         }
     }
 
